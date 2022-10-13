@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Wall : MonoBehaviour
 {
+    public GameObject head;
+
     public int width = 5, height = 10;
     // Start is called before the first frame update
     void Start()
@@ -26,6 +28,7 @@ public class Wall : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        head.transform.Rotate(Time.deltaTime * 360, 0, 0);
+
     }
 }
