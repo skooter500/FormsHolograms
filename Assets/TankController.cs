@@ -6,6 +6,25 @@ using UnityEngine.InputSystem;
 public class TankController : MonoBehaviour
 {
 
+    void Start()
+    {
+        Vector3 a = new Vector3(5,6, 0);
+        Vector3 b = new Vector3(11, 8, 0);
+
+        Vector3 c = b - a;
+
+        Debug.Log(c);
+        Debug.Log(c.magnitude);
+
+        Debug.Log(Vector3.Normalize(c));
+
+        float theta = 90 + Mathf.Atan(c.y / c.x) * Mathf.Rad2Deg;
+
+        Debug.Log(theta);
+
+
+    }
+
 
     public void Move(InputAction.CallbackContext context)
     {
