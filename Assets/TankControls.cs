@@ -24,23 +24,23 @@ public partial class @TankControls : IInputActionCollection2, IDisposable
     ""name"": ""TankControls"",
     ""maps"": [
         {
-            ""name"": ""Land"",
-            ""id"": ""863fb333-c3d0-402a-b820-a8e3d2534cf9"",
+            ""name"": ""Ground"",
+            ""id"": ""db518bf0-18d2-4372-9273-2fa7ba0b7c26"",
             ""actions"": [
                 {
                     ""name"": ""Move"",
                     ""type"": ""Value"",
-                    ""id"": ""4edef430-c4f2-463e-820c-70f2932729fd"",
+                    ""id"": ""5c4045c6-6106-4689-a4b0-9f1b5b6ccb29"",
                     ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Shoot"",
-                    ""type"": ""Button"",
-                    ""id"": ""0675bd39-88f5-4935-989c-acbb5ba4c613"",
-                    ""expectedControlType"": ""Button"",
+                    ""name"": ""Rotate"",
+                    ""type"": ""Value"",
+                    ""id"": ""d6586415-80e9-46c4-942e-b02efa58cd30"",
+                    ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -49,7 +49,7 @@ public partial class @TankControls : IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": ""1D Axis"",
-                    ""id"": ""95cb5ca8-3e9f-4feb-9eba-523ae67f1a4a"",
+                    ""id"": ""0fd289a9-9bd2-468e-808c-5b0dd353629d"",
                     ""path"": ""1DAxis"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -60,7 +60,7 @@ public partial class @TankControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""negative"",
-                    ""id"": ""f8853df2-da92-402b-b11a-60e60eba61f0"",
+                    ""id"": ""4d7976a5-61ac-4618-bca8-566a7c0a8a9d"",
                     ""path"": ""<Gamepad>/leftStick/down"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -71,7 +71,7 @@ public partial class @TankControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""positive"",
-                    ""id"": ""c47df7da-e506-449e-9dd9-b20ac4da3ed2"",
+                    ""id"": ""b1828c01-2c0f-49c0-a441-38e76b6ba5ea"",
                     ""path"": ""<Gamepad>/leftStick/up"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -81,36 +81,47 @@ public partial class @TankControls : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""7814cfe6-dc4e-406d-bbb0-964585aba768"",
-                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""name"": ""1D Axis"",
+                    ""id"": ""1a3b152b-ec93-4064-8f51-1a036c032cec"",
+                    ""path"": ""1DAxis"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Shoot"",
-                    ""isComposite"": false,
+                    ""action"": ""Rotate"",
+                    ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""912752c0-724f-45c9-a6d6-17d89d79d597"",
-                    ""path"": ""<XInputController>/leftTrigger"",
+                    ""name"": ""negative"",
+                    ""id"": ""8e23acd3-4f4e-465b-8f99-a56461e78a5b"",
+                    ""path"": ""<Gamepad>/leftStick/left"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Shoot"",
+                    ""action"": ""Rotate"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""46292389-06e6-4a02-922d-5999f35aa59c"",
+                    ""path"": ""<Gamepad>/leftStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
     ],
     ""controlSchemes"": []
 }");
-        // Land
-        m_Land = asset.FindActionMap("Land", throwIfNotFound: true);
-        m_Land_Move = m_Land.FindAction("Move", throwIfNotFound: true);
-        m_Land_Shoot = m_Land.FindAction("Shoot", throwIfNotFound: true);
+        // Ground
+        m_Ground = asset.FindActionMap("Ground", throwIfNotFound: true);
+        m_Ground_Move = m_Ground.FindAction("Move", throwIfNotFound: true);
+        m_Ground_Rotate = m_Ground.FindAction("Rotate", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -167,49 +178,49 @@ public partial class @TankControls : IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // Land
-    private readonly InputActionMap m_Land;
-    private ILandActions m_LandActionsCallbackInterface;
-    private readonly InputAction m_Land_Move;
-    private readonly InputAction m_Land_Shoot;
-    public struct LandActions
+    // Ground
+    private readonly InputActionMap m_Ground;
+    private IGroundActions m_GroundActionsCallbackInterface;
+    private readonly InputAction m_Ground_Move;
+    private readonly InputAction m_Ground_Rotate;
+    public struct GroundActions
     {
         private @TankControls m_Wrapper;
-        public LandActions(@TankControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Move => m_Wrapper.m_Land_Move;
-        public InputAction @Shoot => m_Wrapper.m_Land_Shoot;
-        public InputActionMap Get() { return m_Wrapper.m_Land; }
+        public GroundActions(@TankControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Move => m_Wrapper.m_Ground_Move;
+        public InputAction @Rotate => m_Wrapper.m_Ground_Rotate;
+        public InputActionMap Get() { return m_Wrapper.m_Ground; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(LandActions set) { return set.Get(); }
-        public void SetCallbacks(ILandActions instance)
+        public static implicit operator InputActionMap(GroundActions set) { return set.Get(); }
+        public void SetCallbacks(IGroundActions instance)
         {
-            if (m_Wrapper.m_LandActionsCallbackInterface != null)
+            if (m_Wrapper.m_GroundActionsCallbackInterface != null)
             {
-                @Move.started -= m_Wrapper.m_LandActionsCallbackInterface.OnMove;
-                @Move.performed -= m_Wrapper.m_LandActionsCallbackInterface.OnMove;
-                @Move.canceled -= m_Wrapper.m_LandActionsCallbackInterface.OnMove;
-                @Shoot.started -= m_Wrapper.m_LandActionsCallbackInterface.OnShoot;
-                @Shoot.performed -= m_Wrapper.m_LandActionsCallbackInterface.OnShoot;
-                @Shoot.canceled -= m_Wrapper.m_LandActionsCallbackInterface.OnShoot;
+                @Move.started -= m_Wrapper.m_GroundActionsCallbackInterface.OnMove;
+                @Move.performed -= m_Wrapper.m_GroundActionsCallbackInterface.OnMove;
+                @Move.canceled -= m_Wrapper.m_GroundActionsCallbackInterface.OnMove;
+                @Rotate.started -= m_Wrapper.m_GroundActionsCallbackInterface.OnRotate;
+                @Rotate.performed -= m_Wrapper.m_GroundActionsCallbackInterface.OnRotate;
+                @Rotate.canceled -= m_Wrapper.m_GroundActionsCallbackInterface.OnRotate;
             }
-            m_Wrapper.m_LandActionsCallbackInterface = instance;
+            m_Wrapper.m_GroundActionsCallbackInterface = instance;
             if (instance != null)
             {
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
-                @Shoot.started += instance.OnShoot;
-                @Shoot.performed += instance.OnShoot;
-                @Shoot.canceled += instance.OnShoot;
+                @Rotate.started += instance.OnRotate;
+                @Rotate.performed += instance.OnRotate;
+                @Rotate.canceled += instance.OnRotate;
             }
         }
     }
-    public LandActions @Land => new LandActions(this);
-    public interface ILandActions
+    public GroundActions @Ground => new GroundActions(this);
+    public interface IGroundActions
     {
         void OnMove(InputAction.CallbackContext context);
-        void OnShoot(InputAction.CallbackContext context);
+        void OnRotate(InputAction.CallbackContext context);
     }
 }

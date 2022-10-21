@@ -5,6 +5,48 @@ using UnityEngine.InputSystem;
 
 public class TankController : MonoBehaviour
 {
+    private TankControls tc;
+
+    void Awake()
+    {
+        tc = new TankControls();
+    }
+
+    void OnEnable()
+    {
+        tc.Enable();
+    }
+
+    void OnDisable()
+    {
+        tc.Disable();
+    }
+
+    public float speed = 5;
+    public float rotSpeed = 180;
+
+    void Update()
+    {
+        float f = tc.Ground.Move.ReadValue<float>();
+
+        Debug.Log("f: " + f);
+
+        transform.Translate(0, 0, speed * f * Time.deltaTime);
+
+        /*
+        Vector3 p = transform.position;
+        p += transform.forward * speed * Time.deltaTime;
+        transform.position = p;
+        */
+
+        float r = tc.Ground.Rotate.ReadValue<float>();
+
+        Debug.Log("f: " + r);
+
+        transform.Rotate(0, rotSpeed * f * Time.deltaTime, 0);
+
+
+    }
 
     void Start()
     {
